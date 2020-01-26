@@ -3,8 +3,6 @@ wrongStatement.className = "text-secondary";
 wrongStatement.textContent = ` Incorrect!`;
 
 let timer = 75;
-document.getElementById('timer').textContent = timer;
-
 
 let questionOneCond = false;
 let questionTwoCond = false;
