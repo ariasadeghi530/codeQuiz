@@ -1,6 +1,10 @@
 let wrongStatement = document.createElement('p');
 wrongStatement.className = "text-secondary";
-wrongStatement.textContent = ` Incorrect!`;
+wrongStatement.innerHTML = ``;
+
+const incorrect = `Incorrect!`;
+const correct = `Correct!`;
+
 
 let timer = 75;
 
@@ -8,7 +12,7 @@ let questionOneCond = false;
 let questionTwoCond = false;
 let questionThreeCond = false;
 
-document.getElementById('submit').addEventListener('click', function() {
+document.getElementById('submit').addEventListener('click', function () {
 
   //start timer
   setInterval(function () {
@@ -44,25 +48,23 @@ document.addEventListener('click', function (event) {
         </div>
     
     `
+
+    document.getElementById('bottom').append(wrongStatement);
+
   }
 
-    
+  if ((event.target.value === '4') && questionOneCond) {
 
-    if ((event.target.value === '1' || event.target.value === '2' || event.target.value === '3') && questionOneCond)  {
-     
-      document.getElementById('bottom').append(wrongStatement);
+    questionOneCond = false;
+    questionTwoCond = true;
 
-    }
+    wrongStatement.innerHTML = `<hr>`;
+    wrongStatement.append(correct);
+    wrongStatement.innerHTML = ``;
 
-
-    if ((event.target.value === '4') && questionOneCond) {
-
-      questionOneCond = false;
-      questionTwoCond = true;
-
-      document.getElementById('title').textContent = 'Question 2';
-      document.getElementById('prompt').textContent = 'What is not javascript?';
-      document.getElementById('btn-wrapper').innerHTML = ` 
+    document.getElementById('title').textContent = 'Question 2';
+    document.getElementById('prompt').textContent = 'What is not javascript?';
+    document.getElementById('btn-wrapper').innerHTML = ` 
     <div>
         <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="1">1: meep boop</button>
         </div>
@@ -77,20 +79,20 @@ document.addEventListener('click', function (event) {
         </div>
       
     `
-
-
-    }
-  
-  
-  if ((event.target.value === '1' || event.target.value === '3' || event.target.value === '4') && questionTwoCond) {
-
-     document.getElementById('bottom').append(wrongStatement);
+    document.getElementById('bottom').append(wrongStatement);
 
   }
+
   if ((event.target.value === '2') && questionTwoCond) {
 
     questionTwoCond = false;
     questionThreeCond = true;
+
+
+    wrongStatement.innerHTML = `<hr>`;
+    wrongStatement.append(correct);
+    wrongStatement.innerHTML = ``;
+
 
     document.getElementById('title').textContent = 'Question 3';
     document.getElementById('prompt').textContent = 'What is not not javascript?';
@@ -109,14 +111,51 @@ document.addEventListener('click', function (event) {
         </div>
       
     `
-  }
-  if((event.target.value === '2' || event.target.value === '3' || event.target.value === '4') && questionThreeCond) {
 
     document.getElementById('bottom').append(wrongStatement);
-  }
-
-  if ((event.target.value === '1') && questionThreeCond ){
 
   }
+  
+  if ((event.target.value === '1') && questionThreeCond) {
+
+    questionThreeCond = false;
+
+    wrongStatement.innerHTML = `<hr>`;
+    wrongStatement.append(correct);
+    wrongStatement.innerHTML = ``;
+
+  }
+
+  if ((event.target.value === '1' || event.target.value === '2' || event.target.value === '3') && questionOneCond) {
+
+    timer -= 10;
+    wrongStatement.innerHTML = `<hr>`;
+    wrongStatement.append(incorrect);
+
+  }
+
+
+
+  if ((event.target.value === '1' || event.target.value === '3' || event.target.value === '4') && questionTwoCond) {
+
+    timer -= 10;
+
+    wrongStatement.innerHTML = `<hr>`;
+    wrongStatement.append(incorrect)
+    ;
+
+  }
+
+  if ((event.target.value === '2' || event.target.value === '3' || event.target.value === '4') && questionThreeCond) {
+
+    timer -= 10;
+
+    wrongStatement.innerHTML = `<hr>`;
+
+    wrongStatement.append(incorrect);
+
+  }
+
+ 
 })
 
