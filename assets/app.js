@@ -42,7 +42,7 @@ document.addEventListener('click', function (event) {
     <div id="bottom">
         <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="4">4. Pee poo</button>
         </div>
-      
+    
     `
   }
 
