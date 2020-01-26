@@ -1,10 +1,26 @@
 let wrongStatement = document.createElement('p');
 wrongStatement.className = "text-secondary";
 wrongStatement.textContent = ` Incorrect!`;
+
+let timer = 75;
+document.getElementById('timer').textContent = timer;
+
+
 let questionOneCond = false;
 let questionTwoCond = false;
 let questionThreeCond = false;
 
+document.getElementById('submit').addEventListener('click', function() {
+
+  //start timer
+  setInterval(function () {
+    timer--;
+    document.getElementById('timer').textContent = timer;
+    console.log(timer);
+  }, 1000);
+
+
+})
 
 document.addEventListener('click', function (event) {
 
@@ -35,7 +51,7 @@ document.addEventListener('click', function (event) {
     
 
     if ((event.target.value === '1' || event.target.value === '2' || event.target.value === '3') && questionOneCond)  {
-
+     
       document.getElementById('bottom').append(wrongStatement);
 
     }
