@@ -28,6 +28,7 @@ function endQuiz() {
   document.getElementById('subForm').style.visibility = 'visible';
 }
 
+
 function gameOver() {
   document.getElementById('title').textContent = 'Game Over!';
   document.getElementById('btn-wrapper').innerHTML = `
@@ -35,6 +36,14 @@ function gameOver() {
    <a class="btn btn-primary btn-sm btn-center" href="./index.html" role="button" id='tryAgain'>Try Again</a>
    </div>`;
 }
+
+function loseTime() {
+  if(!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer)){
+    timer -= 10;
+    document.createElement('p');
+}
+}
+
 
 function startQuiz() {
 
@@ -63,21 +72,33 @@ function startQuiz() {
       endQuiz();
     
     
-    } else if(event.target.value === questions[currentQuestionInd].answer){
+    } 
+    else if(event.target.value === questions[currentQuestionInd].answer){
       currentQuestionInd++;
       startQuiz();
     } 
 
   })
   
+  
+}
+
+function addName(){
+
+  highscore.push([{
+    name: document.getElementById('highscoreLeaderBoard').value,
+    score: `${timer}`
+  }]);
+
+  let newScore = document.createElement('li');
+  newScore.textContent = `${highscore[highscore.length - 1].name} + ' ' + ${highscore[highscore.length - 1].score}`;
+  document.getElementById('leaderBoard').append(newScore);
 
   
 }
 
 
-
-
-
 document.getElementById('submit').addEventListener('click', startTimer);
 document.getElementById('submit').addEventListener('click', startQuiz);
-
+document.getElementById('addName').addEventListener('click', addName);
+document.getElementById('btn-wrapper').addEventListener('click', loseTime);
