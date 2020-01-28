@@ -1,9 +1,9 @@
 let currentQuestionInd = 0
 
 let globalTimer;
+let highscore = [];
 
 let timer = questions.length * 10;
-document.getElementById('timer').textContent = timer;
 
 
 function startTimer() {
@@ -38,20 +38,22 @@ function gameOver() {
 }
 
 function loseTime() {
-  if(!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer)){
+  if (!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer)) {
     timer -= 10;
     document.createElement('p');
-}
+  }
 }
 
 
 function startQuiz() {
 
+  document.getElementById('timer').textContent = timer;
+
   document.getElementById('title').textContent = questions[currentQuestionInd].prompt;
-  document.getElementById('prompt').textContent =  '';
+  document.getElementById('prompt').textContent = '';
   document.getElementById('btn-wrapper').innerHTML = ``;
 
-  for(let i = 0; i < questions[currentQuestionInd].choices.length; i++){
+  for (let i = 0; i < questions[currentQuestionInd].choices.length; i++) {
 
     let div = document.createElement('div');
     let button = document.createElement('button');
@@ -59,44 +61,53 @@ function startQuiz() {
     button.type = 'submit';
     button.value = `${questions[currentQuestionInd].choices[i]}`;
     button.textContent = `${questions[currentQuestionInd].choices[i]}`;
-    
-    document.getElementById('btn-wrapper').append(div); 
-    document.getElementById('btn-wrapper').append(button); 
+
+    document.getElementById('btn-wrapper').append(div);
+    document.getElementById('btn-wrapper').append(button);
 
   }
 
 
   document.addEventListener('click', event => {
-    if ((currentQuestionInd === questions.length - 1)){
+    if ((currentQuestionInd === questions.length - 1)) {
       clearInterval(globalTimer);
       endQuiz();
-    
-    
-    } 
-    else if(event.target.value === questions[currentQuestionInd].answer){
+
+    }
+    else if (event.target.value === questions[currentQuestionInd].answer) {
       currentQuestionInd++;
       startQuiz();
-    } 
+    }
 
   })
-  
-  
+
+
 }
 
-function addName(){
+function addName() {
 
-  highscore.push([{
+  highscore.push({
     name: document.getElementById('highscoreLeaderBoard').value,
     score: `${timer}`
-  }]);
+  });
+
 
   let newScore = document.createElement('li');
-  newScore.textContent = `${highscore[highscore.length - 1].name} + ' ' + ${highscore[highscore.length - 1].score}`;
-  document.getElementById('leaderBoard').append(newScore);
+  newScore.textContent = `${highscore[highscore.length - 1].name}  ${highscore[highscore.length - 1].score}`;
+  document.getElementById('leaderBoard').appendChild(newScore);
+  localStorage.setItem(`${highscore[highscore.length - 1].name}`, `${highscore[highscore.length - 1].score}`);
 
-  
+
 }
 
+for (var i = 0, len = localStorage.length; i < len; ++i) {
+  let userInit = localStorage.key(i);
+  let userScore = localStorage.getItem(localStorage.key(i));
+  let scoreListItem = document.createElement('li');
+  scoreListItem.textContent = `${userInit} ${userScore}`;
+  document.getElementById('leaderBoard').appendChild(scoreListItem);
+
+}
 
 document.getElementById('submit').addEventListener('click', startTimer);
 document.getElementById('submit').addEventListener('click', startQuiz);

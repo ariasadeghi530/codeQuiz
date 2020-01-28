@@ -20,3 +20,7 @@ h1 {
 #subForm{
   visibility: hidden;
 }
+
+#scores-list{
+  visibility: hidden;
+}
