@@ -16,3 +16,7 @@ h1 {
 .high-scores{
   margin-top: 15%;
 }
+
+#subForm{
+  visibility: hidden;
+}

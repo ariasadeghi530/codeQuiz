@@ -1,161 +1,83 @@
-let wrongStatement = document.createElement('p');
-wrongStatement.className = "text-secondary";
-wrongStatement.innerHTML = ``;
+let currentQuestionInd = 0
 
-const incorrect = `Incorrect!`;
-const correct = `Correct!`;
+let globalTimer;
+
+let timer = questions.length * 10;
+document.getElementById('timer').textContent = timer;
 
 
-let timer = 75;
-
-let questionOneCond = false;
-let questionTwoCond = false;
-let questionThreeCond = false;
-
-document.getElementById('submit').addEventListener('click', function () {
-
-  //start timer
-  setInterval(function () {
+function startTimer() {
+  globalTimer = setInterval(() => {
     timer--;
     document.getElementById('timer').textContent = timer;
-    console.log(timer);
+    if (timer <= 0) {
+      clearInterval(globalTimer);
+      timer = 0;
+      document.getElementById('timer').textContent = timer;
+      gameOver();
+    }
+
   }, 1000);
+}
 
 
-})
+function endQuiz() {
+  document.getElementById('title').textContent = 'All Done!';
+  document.getElementById('prompt').textContent = `Your score is ${timer}!`;
+  document.getElementById('btn-wrapper').innerHTML = ``;
+  document.getElementById('subForm').style.visibility = 'visible';
+}
 
-document.addEventListener('click', function (event) {
+function gameOver() {
+  document.getElementById('title').textContent = 'Game Over!';
+  document.getElementById('btn-wrapper').innerHTML = `
+  <div class="text-center">
+   <a class="btn btn-primary btn-sm btn-center" href="./index.html" role="button" id='tryAgain'>Try Again</a>
+   </div>`;
+}
 
-  //start quiz
-  if (event.target.id === 'submit') {
+function startQuiz() {
 
-    questionOneCond = true;
+  document.getElementById('title').textContent = questions[currentQuestionInd].prompt;
+  document.getElementById('prompt').textContent =  '';
+  document.getElementById('btn-wrapper').innerHTML = ``;
 
-    document.getElementById('title').textContent = 'Question 1';
-    document.getElementById('prompt').textContent = 'What is a javascript?';
-    document.getElementById('btn-wrapper').innerHTML = ` 
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="1">1: Beep boop</button>
-        </div>
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="2">2: Meep moop</button>
-        </div>
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="3">3. dee doo</button>
-        </div>
-    <div id="bottom">
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="4">4. Pee poo</button>
-        </div>
+  for(let i = 0; i < questions[currentQuestionInd].choices.length; i++){
+
+    let div = document.createElement('div');
+    let button = document.createElement('button');
+    button.classList = 'btn btn-outline-primary btn-sm btn-center mb-1';
+    button.type = 'submit';
+    button.value = `${questions[currentQuestionInd].choices[i]}`;
+    button.textContent = `${questions[currentQuestionInd].choices[i]}`;
     
-    `
-
-    document.getElementById('bottom').append(wrongStatement);
-
-  }
-
-  if ((event.target.value === '4') && questionOneCond) {
-
-    questionOneCond = false;
-    questionTwoCond = true;
-
-    wrongStatement.innerHTML = `<hr>`;
-    wrongStatement.append(correct);
-    wrongStatement.innerHTML = ``;
-
-    document.getElementById('title').textContent = 'Question 2';
-    document.getElementById('prompt').textContent = 'What is not javascript?';
-    document.getElementById('btn-wrapper').innerHTML = ` 
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="1">1: meep boop</button>
-        </div>
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="2">2: beep moop</button>
-        </div>
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="3">3. deet doot</button>
-        </div>
-    <div id="bottom">
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="4">4. Peep poo</button>
-        </div>
-      
-    `
-    document.getElementById('bottom').append(wrongStatement);
+    document.getElementById('btn-wrapper').append(div); 
+    document.getElementById('btn-wrapper').append(button); 
 
   }
 
-  if ((event.target.value === '2') && questionTwoCond) {
 
-    questionTwoCond = false;
-    questionThreeCond = true;
+  document.addEventListener('click', event => {
+    if ((currentQuestionInd === questions.length - 1)){
+      clearInterval(globalTimer);
+      endQuiz();
+    
+    
+    } else if(event.target.value === questions[currentQuestionInd].answer){
+      currentQuestionInd++;
+      startQuiz();
+    } 
 
-
-    wrongStatement.innerHTML = `<hr>`;
-    wrongStatement.append(correct);
-    wrongStatement.innerHTML = ``;
-
-
-    document.getElementById('title').textContent = 'Question 3';
-    document.getElementById('prompt').textContent = 'What is not not javascript?';
-    document.getElementById('btn-wrapper').innerHTML = ` 
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="1">1: meep boop</button>
-        </div>
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="2">2: beep moop</button>
-        </div>
-    <div>
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="3">3. deet doot</button>
-        </div>
-    <div id="bottom">
-        <button class="btn btn-outline-primary btn-sm btn-center mb-1" type="submit" value="4">4. Peep poo</button>
-        </div>
-      
-    `
-
-    document.getElementById('bottom').append(wrongStatement);
-
-  }
+  })
   
-  if ((event.target.value === '1') && questionThreeCond) {
 
-    questionThreeCond = false;
-
-    wrongStatement.innerHTML = `<hr>`;
-    wrongStatement.append(correct);
-    wrongStatement.innerHTML = ``;
-
-  }
-
-  if ((event.target.value === '1' || event.target.value === '2' || event.target.value === '3') && questionOneCond) {
-
-    timer -= 10;
-    wrongStatement.innerHTML = `<hr>`;
-    wrongStatement.append(incorrect);
-
-  }
+  
+}
 
 
 
-  if ((event.target.value === '1' || event.target.value === '3' || event.target.value === '4') && questionTwoCond) {
 
-    timer -= 10;
 
-    wrongStatement.innerHTML = `<hr>`;
-    wrongStatement.append(incorrect)
-    ;
-
-  }
-
-  if ((event.target.value === '2' || event.target.value === '3' || event.target.value === '4') && questionThreeCond) {
-
-    timer -= 10;
-
-    wrongStatement.innerHTML = `<hr>`;
-
-    wrongStatement.append(incorrect);
-
-  }
-
- 
-})
+document.getElementById('submit').addEventListener('click', startTimer);
+document.getElementById('submit').addEventListener('click', startQuiz);
 

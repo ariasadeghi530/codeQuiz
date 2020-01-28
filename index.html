@@ -24,7 +24,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
-      <a class="nav-item nav-link disabled text-primary">Timer: <span id="timer">75</span></a>
+      <a class="nav-item nav-link disabled text-primary">Timer: <span id="timer"></span></a>
     </div>
   </div>
 </nav>
@@ -41,10 +41,17 @@
       <p class="text-center push-down-sm" id="prompt">Try to answer the following coding-related questions within the time limit. Incorrect answers will penalize your score/time by ten seconds!</p>
       </div>
       <div id="btn-wrapper">
-      <div class="push-down text-center" id="btns">
-        <button class="btn btn-primary btn-sm btn-center" type="submit" id='submit'>Start Quiz</button>
+        <div class="push-down text-center" id="btns">
+          <button class="btn btn-primary btn-sm btn-center" type="submit" id='submit'>Start Quiz</button>
+        </div>
       </div>
-    </div>
+                <form id='subForm'>
+                <div class="form-group">
+                  <label for="highscoreLeaderBoard"></label>
+                  <input type="text" class="form-control" id="highscoreLeaderBoard">
+                </div>
+                <a class="btn btn-primary btn-sm" href="./highscores.html" role="button" id='addName'>Add Initials</a>
+              </form>
     </div>
     <div class="col-md-2"></div>
   </div>
@@ -63,6 +70,7 @@
   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <!-- link to my JS -->
+  <script src="./assets/question.js"></script>
   <script src="./assets/app.js"></script>
 </body>
 </html>
