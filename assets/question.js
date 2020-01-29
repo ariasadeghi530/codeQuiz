@@ -1,20 +1,20 @@
 
 const questions = 
-[{prompt: 'What is your favorite color?',
-choices: ['Blue','Green','Red','Yellow'],
-answer: 'Blue'
+[{prompt: 'What character is needed when decalring an object literal?',
+choices: ['{}','[]',`''`,`""`],
+answer: '{}'
 },
-{ prompt: 'What is my favorite color?',
-  choices: ['Blue', 'Green', 'Red', 'Yellow'],
-  answer: 'Red'
+{ prompt: 'What is the type of the true keyword?',
+  choices: ['string', 'number', 'object', 'boolean'],
+  answer: 'boolean'
 },
-{ prompt: 'Why are you here?',
-  choices: ['I could ask you the same question', 'Yes?', 'No?', 'my mom made me'],
-  answer: 'Yes?'
+{ prompt: 'How do you print to the console?',
+  choices: ['System.out.print()', 'console.log()', 'print()', 'display()'],
+  answer: 'console.log()'
 },
-{ prompt: 'Are you a different animal, and the same beast?',
-  choices: [`What the F*** does that mean Kobe Bryant?`, `What are you talking about?`, 'sure', `You're welcome`],
-  answer: `You're welcome`
+{ prompt: 'Which is a falsey value?',
+  choices: [`'false'`, `42`, '0', `[false, false, false]`],
+  answer: `0`
 },
 { prompt: 'Press F',
   choices: ['A', 'D', 'F', 'E'],
