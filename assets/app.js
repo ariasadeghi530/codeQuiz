@@ -38,17 +38,25 @@ function gameOver() {
    </div>`;
 }
 
+function incStatement(){
+  
+  let incorrect = document.createElement('p');
+  incorrect.innerHTML = `
+      <hr>
+      Incorrect!`;
+  document.getElementById('btn-wrapper').append(incorrect);
+  setTimeout(()=> {
+    incorrect.innerHTML = ``;
+    document.getElementById('btn-wrapper').append(incorrect);
+  },500 );
+  
+
+}
 function loseTime() {
-  if  (!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer)) {
+  if (!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer || event.target.id === 'clear'|| event.target.id === 'addName' || event.target.id === 'goBack')) {
     timer -= 10;
-    
-    //MAKE CHANGES HERE
-    
-    // let incorrect = document.createElement('p');
-    // incorrect.innerHTML = `
-    //   <hr>
-    //   Incorrect!`;
-    // document.getElementById('btn-wrapper').append(incorrect);
+
+    incStatement();
     
   }
 }
@@ -129,6 +137,9 @@ function removeElems(){
     scoreListItem.textContent = `${userInit} ${userScore}`;
     document.getElementById('leaderBoard').appendChild(scoreListItem);
 
+  }
+  if (localStorage.length === 0){
+    document.getElementById('leaderBoard').innerHTML = ``;
   }
 }
 
