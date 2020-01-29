@@ -1,0 +1,26 @@
+.centered {
+  text-align: center;
+}
+.push-down{
+  margin-top: 5%;
+}
+
+.push-down-sm{
+  margin-top: 2%;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+.high-scores{
+  margin-top: 15%;
+}
+
+#subForm{
+  visibility: hidden;
+}
+
+.scores-list{
+  visibility: hidden;
+}
