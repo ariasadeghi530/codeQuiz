@@ -2,6 +2,7 @@ let currentQuestionInd = 0
 
 let globalTimer;
 let highscore = [];
+//let isIncorrect = false;
 
 let timer = questions.length * 10;
 
@@ -38,9 +39,17 @@ function gameOver() {
 }
 
 function loseTime() {
-  if (!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer)) {
+  if  (!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer)) {
     timer -= 10;
-    document.createElement('p');
+    
+    //MAKE CHANGES HERE
+    
+    // let incorrect = document.createElement('p');
+    // incorrect.innerHTML = `
+    //   <hr>
+    //   Incorrect!`;
+    // document.getElementById('btn-wrapper').append(incorrect);
+    
   }
 }
 
@@ -108,8 +117,23 @@ for (var i = 0, len = localStorage.length; i < len; ++i) {
   document.getElementById('leaderBoard').appendChild(scoreListItem);
 
 }
+function removeElems(){
+  for (let i = 0, len = localStorage.length; i < len; ++i){
+    localStorage.removeItem(localStorage.key(i));
+  }
 
-document.getElementById('submit').addEventListener('click', startTimer);
+  for (let i = 0, len = localStorage.length; i < len; ++i) {
+    let userInit = localStorage.key(i);
+    let userScore = localStorage.getItem(localStorage.key(i));
+    let scoreListItem = document.createElement('li');
+    scoreListItem.textContent = `${userInit} ${userScore}`;
+    document.getElementById('leaderBoard').appendChild(scoreListItem);
+
+  }
+}
+
 document.getElementById('submit').addEventListener('click', startQuiz);
-document.getElementById('addName').addEventListener('click', addName);
+document.getElementById('submit').addEventListener('click', startTimer);
 document.getElementById('btn-wrapper').addEventListener('click', loseTime);
+document.getElementById('addName').addEventListener('click', addName);
+document.getElementById('clear').addEventListener('click', removeElems);
