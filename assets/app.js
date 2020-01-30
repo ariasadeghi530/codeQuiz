@@ -1,11 +1,15 @@
+
+// start index for questions array;
 let currentQuestionInd = 0
 
+// variable decclartion
 let globalTimer;
 let highscore = [];
 
+// ten seconds per question
 let timer = questions.length * 10;
 
-
+// manages timer throughout quiz
 function startTimer() {
   globalTimer = setInterval(() => {
     timer--;
@@ -20,7 +24,7 @@ function startTimer() {
   }, 1000);
 }
 
-
+// change page elements when completing quiz
 function endQuiz() {
   document.getElementById('title').textContent = 'All Done!';
   document.getElementById('prompt').textContent = `Your score is ${timer}!`;
@@ -28,7 +32,7 @@ function endQuiz() {
   document.getElementById('subForm').style.visibility = 'visible';
 }
 
-
+// change page elements when time runs out
 function gameOver() {
   document.getElementById('title').textContent = 'Game Over!';
   document.getElementById('btn-wrapper').innerHTML = `
@@ -37,30 +41,34 @@ function gameOver() {
    </div>`;
 }
 
-function incStatement(){
-  
+// add incorrect statement
+function incStatement() {
+
   let incorrect = document.createElement('p');
   incorrect.innerHTML = `
       <hr>
       Incorrect!`;
   document.getElementById('btn-wrapper').append(incorrect);
-  setTimeout(()=> {
+  setTimeout(() => {
     incorrect.innerHTML = ``;
     document.getElementById('btn-wrapper').append(incorrect);
-  },500 );
-  
+  }, 500);
+
 
 }
+
+// decrement timer
 function loseTime() {
-  if (!(event.target.id === 'submit' || event.target.id === 'clear' || event.target.id === 'addName' || event.target.id === 'goBack' || event.target.id === 'tryAgain' || event.target.value === questions[currentQuestionInd].answer )) {
+  if (!(event.target.id === 'submit' || event.target.id === 'clear' || event.target.id === 'addName' || event.target.id === 'goBack' || event.target.id === 'tryAgain' || event.target.value === questions[currentQuestionInd].answer)) {
     timer -= 10;
 
     incStatement();
-    
+
   }
 }
 
 
+// recursively change questions 
 function startQuiz() {
 
   document.getElementById('timer').textContent = timer;
@@ -85,7 +93,7 @@ function startQuiz() {
 
 
   document.addEventListener('click', event => {
-    if ((currentQuestionInd === questions.length )) {
+    if ((currentQuestionInd === questions.length)) {
       clearInterval(globalTimer);
       endQuiz();
 
@@ -100,6 +108,7 @@ function startQuiz() {
 
 }
 
+// add name to scoreboard and update localStorage
 function addName() {
 
   highscore.push({
@@ -116,6 +125,7 @@ function addName() {
 
 }
 
+// render local storage elements on page load
 for (var i = 0, len = localStorage.length; i < len; ++i) {
   let userInit = localStorage.key(i);
   let userScore = localStorage.getItem(localStorage.key(i));
@@ -124,8 +134,10 @@ for (var i = 0, len = localStorage.length; i < len; ++i) {
   document.getElementById('leaderBoard').appendChild(scoreListItem);
 
 }
-function removeElems(){
-  for (let i = 0, len = localStorage.length; i < len; ++i){
+
+// delete elements from local storage and render
+function removeElems() {
+  for (let i = 0, len = localStorage.length; i < len; ++i) {
     localStorage.removeItem(localStorage.key(i));
   }
 
@@ -137,11 +149,12 @@ function removeElems(){
     document.getElementById('leaderBoard').appendChild(scoreListItem);
 
   }
-  if (localStorage.length === 0){
+  if (localStorage.length === 0) {
     document.getElementById('leaderBoard').innerHTML = ``;
   }
 }
 
+// event listeners for specific buttons 
 document.getElementById('submit').addEventListener('click', startQuiz);
 document.getElementById('submit').addEventListener('click', startTimer);
 document.getElementById('btn-wrapper').addEventListener('click', loseTime);

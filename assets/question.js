@@ -1,4 +1,5 @@
 
+// array of elements storing questions and related items
 const questions = 
 [{prompt: 'What character is needed when decalring an object literal?',
 choices: ['{}','[]',`''`,`""`],
