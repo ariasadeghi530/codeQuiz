@@ -16,7 +16,7 @@ answer: '{}'
   choices: [`'false'`, `42`, '0', `[false, false, false]`],
   answer: `0`
 },
-{ prompt: 'Press F',
-  choices: ['A', 'D', 'F', 'E'],
-  answer: 'F'
+{ prompt: `Which of these isn't a truthy value?`,
+  choices: [`'0'`, '[]', `'false`, `''`],
+  answer: `''`
 }];

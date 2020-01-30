@@ -2,7 +2,6 @@ let currentQuestionInd = 0
 
 let globalTimer;
 let highscore = [];
-//let isIncorrect = false;
 
 let timer = questions.length * 10;
 
@@ -53,7 +52,7 @@ function incStatement(){
 
 }
 function loseTime() {
-  if (!(event.target.id === 'submit' || event.target.value === questions[currentQuestionInd].answer || event.target.id === 'clear'|| event.target.id === 'addName' || event.target.id === 'goBack')) {
+  if (!(event.target.id === 'submit' || event.target.id === 'clear' || event.target.id === 'addName' || event.target.id === 'goBack' || event.target.id === 'tryAgain' || event.target.value === questions[currentQuestionInd].answer )) {
     timer -= 10;
 
     incStatement();
@@ -86,7 +85,7 @@ function startQuiz() {
 
 
   document.addEventListener('click', event => {
-    if ((currentQuestionInd === questions.length - 1)) {
+    if ((currentQuestionInd === questions.length )) {
       clearInterval(globalTimer);
       endQuiz();
 
